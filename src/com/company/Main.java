@@ -7,37 +7,42 @@ import java.io.InputStreamReader;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        UserData user1 = new UserData();
-        user1.outInConsoleUserLogin();
-        user1.outConsoleUserPasword();
-    }
+        UserData user = new UserData();
 
-    public static String inConsole() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        return br.readLine();
+
+        System.out.println("Введите логин: ");
+        user.setLoginLine(br.readLine());
+        System.out.println("Введите пароль: ");
+        user.setPasswordLine(br.readLine());
+
+        System.out.println("Пользователь: ");
+        System.out.println(user.getLoginLine());
+        System.out.println(user.getHiddenPassword());
     }
 }
 
 class UserData {
-    private String loginLine, paswordLine;
-    public  UserData () throws IOException {
-        getUserData();
-    }
+    private String loginLine;
+    private String passwordLine;
 
-    private void getUserData () throws IOException{
-        System.out.println("Введите логин: ");
-        loginLine = Main.inConsole().trim();
-        System.out.println("Введите пароль: ");
-        paswordLine = Main.inConsole().trim();
+    public void setLoginLine (String login) {
+        this.loginLine = login;
     }
-
-    public void outInConsoleUserLogin () {
-        System.out.println("\n" + loginLine);
+    public void setPasswordLine (String password) {
+        this.passwordLine = password;
     }
-
-    public void outConsoleUserPasword () {
-        for (int i = 0; i < paswordLine.length(); i++) {
-            System.out.print("*");
+    public String getLoginLine () {
+        return this.loginLine;
+    }
+    public String getPasswordLine () {
+        return this.passwordLine;
+    }
+    public String getHiddenPassword () {
+        String hidPass = "";
+        for (int i = 0; i < passwordLine.length(); i++) {
+            hidPass += "*";
         }
+        return hidPass;
     }
 }
